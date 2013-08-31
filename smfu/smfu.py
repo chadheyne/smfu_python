@@ -3,7 +3,6 @@ from urllib.parse import urlencode
 import json
 
 BASE_URL = "http://smfu.in/api"
-API_KEY = "a449b5dd070a10be0fbffbef5cb2484888ac49e656272498833e3df3e92d86f7"
 
 
 class Shortener:
@@ -44,6 +43,10 @@ class Shortener:
 
     @property
     def _prepare_request(self):
+
+        if not self.post_data['key']:
+            raise Exception('Must specify API key')
+
         self.post_data.update(**self._get_time)
         self.post_data.update(**self._get_marker)
         self.post_data.update(**self._dock_request)
